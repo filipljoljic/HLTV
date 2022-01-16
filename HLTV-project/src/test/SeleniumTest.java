@@ -166,5 +166,76 @@ class SeleniumTest {
         assertEquals("https://www.hltv.org/contact#tab-applyForJobSection", URL);
     }
 
+    @Test
+    void testSignUp() throws InterruptedException {
+        webDriver.get(baseUrl);
+
+        WebElement signIn = webDriver.findElement(By.xpath("/html/body/div[1]/nav/div[9]"));
+        signIn.click();
+        WebElement signUp = webDriver.findElement(By.xpath("//*[@id=\"loginpopup\"]/a"));
+        signUp.click();
+        WebElement username = webDriver.findElement(By.xpath("//*[@id=\"usernameInput\"]"));
+        WebElement password = webDriver.findElement(By.xpath("//*[@id=\"passwordInput\"]"));
+        WebElement email = webDriver.findElement(By.xpath("//*[@id=\"emailInput\"]"));
+        WebElement confirmPassword = webDriver.findElement(By.xpath("//*[@id=\"confirmPasswordInput\"]"));
+        WebElement confirmEmail = webDriver.findElement(By.xpath("//*[@id=\"confirmEmailInput\"]"));
+
+        username.sendKeys("abc123");
+        password.sendKeys("password123");
+        email.sendKeys("your-emailemail.com");
+        confirmPassword.sendKeys("password123");
+        confirmEmail.sendKeys("your-emailemail.com");
+
+        Thread.sleep(2000);
+
+        Select selectFlag = new Select(webDriver.findElement(By.cssSelector("body > div.bgPadding > div > div.colCon > div.contentCol > div.signup.standard-box > form > div > div:nth-child(8) > div > div > select")));
+        selectFlag.selectByVisibleText("Bosnia and Herzegovina");
+        Thread.sleep(2000);
+
+        WebElement theme = webDriver.findElement(By.cssSelector("body > div.bgPadding > div > div.colCon > div.contentCol > div.signup.standard-box > form > div > div:nth-child(11) > div > div:nth-child(2) > label > img"));
+        theme.click();
+        Thread.sleep(2000);
+
+        WebElement createAccount = webDriver.findElement(By.xpath("//*[@id=\"signup-validate-button\"]"));
+        createAccount.click();
+
+        Thread.sleep(2000);
+
+
+
+    }
+
+    @Test
+    void testStats() throws InterruptedException {
+        webDriver.get(baseUrl);
+
+        WebElement stats = webDriver.findElement(By.xpath("/html/body/div[1]/nav/a[6]"));
+        stats.click();
+
+        Select matchFilter = new Select(webDriver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[1]/div[2]/div[1]/div/div/div[1]/form/select")));
+        matchFilter.selectByVisibleText("Majors");
+        Thread.sleep(2000);
+
+        Select timeFilter = new Select(webDriver.findElement(By.cssSelector("body > div.bgPadding > div > div.colCon > div.contentCol > div.stats-section > div.stats-top-menu > div > div > div:nth-child(2) > form > select")));
+        timeFilter.selectByVisibleText("2015");
+        Thread.sleep(2000);
+
+        WebElement bestPlayer = webDriver.findElement(By.cssSelector("body > div.bgPadding > div > div.colCon > div.contentCol > div.stats-section > div.columns > div:nth-child(1) > div:nth-child(2) > a"));
+        assertEquals("flusha", bestPlayer.getText());
+        Thread.sleep(2000);
+
+        WebElement bestTeam = webDriver.findElement(By.cssSelector("body > div.bgPadding > div > div.colCon > div.contentCol > div.stats-section > div.columns > div:nth-child(2) > div:nth-child(2) > a"));
+        assertEquals("fnatic", bestTeam.getText());
+        Thread.sleep(2000);
+
+
+
+    }
+
+    @Test
+    void test(){
+
+    }
+
 
 }
